@@ -1,0 +1,19 @@
+{
+  "name": "automation_pages_cypress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^13.15.1",
+    "cypress-drag-drop": "^1.1.1",
+    "http-server": "^14.1.1"
+  },
+  "dependencies": {
+    "slider": "^1.0.4"
+  }
+}

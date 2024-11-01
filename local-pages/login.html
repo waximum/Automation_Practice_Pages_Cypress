@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1f4037, #99f2c8);
+        color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        flex-direction: column;
+      }
+
+      h1 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        color: #ffffff;
+        text-align: center;
+      }
+
+      .login-container {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 30px;
+        width: 90%;
+        max-width: 400px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      input,
+      button {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1em;
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      button {
+        background: #38ef7d;
+        color: white;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+        font-size: 1.1em;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        background: #11998e;
+        box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      .forgot-password {
+        text-align: right;
+        margin-top: 10px;
+      }
+
+      .forgot-password a {
+        color: #38ef7d;
+        text-decoration: none;
+        font-size: 0.9em;
+      }
+
+      .forgot-password a:hover {
+        text-decoration: underline;
+      }
+
+      a {
+        text-decoration: none;
+        color: #38ef7d;
+        font-size: 1.2em;
+        display: block;
+        text-align: center;
+        margin-top: 15px;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+
+    <script>
+      // Intercepter la soumission du formulaire et valider le mot de passe
+      function handleLogin(event) {
+        event.preventDefault(); // Empêche la soumission par défaut du formulaire
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        // Valider que le mot de passe a entre 5 et 9 caractères
+        if (password.length < 5 || password.length > 9) {
+          alert("Le mot de passe doit contenir entre 5 et 9 caractères.");
+          return;
+        }
+
+        // Si les validations sont correctes, rediriger vers index.html
+        if (email && password) {
+          window.location.href = "index.html"; 
+        } else {
+          alert("Veuillez entrer votre email et votre mot de passe.");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Login</h1>
+
+    <div class="login-container">
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required />
+
+        <label for="password">Password:</label>
+        <!-- Validation HTML pour la longueur du mot de passe -->
+        <input type="password" id="password" name="password" placeholder="Enter your password" minlength="5" maxlength="9" required />
+
+        <button type="submit">Login</button>
+
+        <div class="forgot-password">
+          <a href="#">Forgot your password?</a>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>

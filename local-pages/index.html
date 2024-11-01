@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Automatisation Practice Page Debutant</title>
+    <style>
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #1f4037, #99f2c8);
+        color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        flex-direction: column;
+      }
+
+      h1 {
+        font-size: 2.5em;
+        margin-bottom: 20px;
+        color: #ffffff;
+        text-align: center;
+      }
+
+      .container {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 20px;
+        padding: 30px;
+        width: 90%;
+        max-width: 1000px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .section {
+        margin-bottom: 40px;
+      }
+
+      .section h2 {
+        background: rgba(0, 0, 0, 0.2);
+        padding: 15px;
+        border-radius: 10px;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        font-size: 1.5em;
+        margin-bottom: 20px;
+      }
+
+      /* Buttons */
+      button {
+        background: #38ef7d;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 1.1em;
+        cursor: pointer;
+        border-radius: 8px;
+        margin-right: 10px;
+        box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      button:hover {
+        background: #11998e;
+        box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.4);
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px;
+        margin: 8px 0;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1em;
+        background: rgba(255, 255, 255, 0.7);
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      /* Style for radio and checkboxes */
+      input[type="radio"],
+      input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        margin-right: 10px;
+        vertical-align: middle;
+        cursor: pointer;
+      }
+
+      label {
+        font-size: 1.1em;
+        margin-right: 15px;
+      }
+
+      /* Drag and Drop styles */
+      #dropzone {
+        width: 400px;
+        height: 200px;
+        border: 3px dashed #ffffff;
+        text-align: center;
+        font-size: 1.2em;
+        color: #ffffff;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .draggable {
+        width: 150px;
+        height: 150px;
+        background-color: #ff6347;
+        color: white;
+        border-radius: 10px;
+        cursor: move;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        text-align: center;
+      }
+
+      /* Tooltip */
+      .tooltip {
+        position: relative;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        font-size: 1.1em;
+      }
+
+      .tooltip .tooltiptext {
+        visibility: hidden;
+        width: 140px;
+        background-color: #ffffff;
+        color: #000000;
+        text-align: center;
+        border-radius: 6px;
+        padding: 10px;
+        position: absolute;
+        z-index: 1;
+        bottom: 125%;
+        left: 50%;
+        margin-left: -70px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+        transition: visibility 0.3s ease, opacity 0.3s ease;
+        opacity: 0;
+      }
+
+      .tooltip:hover .tooltiptext {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+        font-size: 1em;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+      }
+
+      table th,
+      table td {
+        padding: 15px;
+        text-align: left;
+        border-bottom: 1px solid #dddddd;
+        background: rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+      }
+
+      table th {
+        background: #38ef7d;
+      }
+
+      .range-display {
+        font-size: 1.5em;
+        color: #38ef7d;
+        margin-left: 15px;
+        vertical-align: middle;
+      }
+
+      /* Color input and display */
+      .color-display {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-left: 10px;
+        border: 2px solid #000;
+        background-color: #3498db;
+        vertical-align: middle;
+      }
+
+      input[type="color"] {
+        cursor: pointer;
+        vertical-align: middle;
+      }
+
+      a {
+        text-decoration: none;
+        color: #38ef7d;
+        font-size: 1.2em;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+    </style>
+    <script>
+      // Drag and Drop functionality
+      function allowDrop(ev) {
+        ev.preventDefault();
+      }
+
+      function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+      }
+
+      function drop(ev) {
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+        var draggedElement = document.getElementById(data);
+        ev.target.appendChild(draggedElement);
+
+        // Optional: Reset position after drop
+        draggedElement.style.position = "relative";
+        draggedElement.style.left = "0";
+        draggedElement.style.top = "0";
+      }
+
+      // Alert function for buttons
+      function showAlert() {
+        alert("You clicked the alert button!");
+      }
+
+      // Confirm dialog
+      function showConfirm() {
+        confirm("Are you sure?");
+      }
+
+      // Prompt dialog
+      function showPrompt() {
+        let response = prompt("What's your name?");
+        if (response) {
+          alert("Hello, " + response + "!");
+        }
+      }
+
+      // Update range display value
+      function updateRangeValue(value) {
+        document.getElementById('rangeValue').textContent = value;
+      }
+
+      // Update color display based on color input
+      function updateColorDisplay(color) {
+        document.getElementById('colorDisplay').style.backgroundColor = color;
+      }
+
+      window.onload = function () {
+        const colorInput = document.getElementById('color');
+        colorInput.addEventListener('input', function () {
+          updateColorDisplay(this.value);
+        });
+
+        updateColorDisplay(colorInput.value); // Initialize with default color
+      };
+
+      // Ajouter une nouvelle ligne à la table dynamiquement
+      function addRowToTable() {
+        const nameInput = document.getElementById("nameInput").value;
+        const ageInput = document.getElementById("ageInput").value;
+        const jobInput = document.getElementById("jobInput").value;
+
+        if (nameInput && ageInput && jobInput) {
+          const table = document.getElementById("dynamicTableBody");
+          const newRow = document.createElement("tr");
+
+          const nameCell = document.createElement("td");
+          nameCell.textContent = nameInput;
+          newRow.appendChild(nameCell);
+
+          const ageCell = document.createElement("td");
+          ageCell.textContent = ageInput;
+          newRow.appendChild(ageCell);
+
+          const jobCell = document.createElement("td");
+          jobCell.textContent = jobInput;
+          newRow.appendChild(jobCell);
+
+          table.appendChild(newRow);
+        } else {
+          alert("Please fill in all fields.");
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Practice Web Elements with Playwright</h1>
+
+    <div class="container">
+      <!-- Buttons Section -->
+      <div class="section">
+        <h2>Buttons</h2>
+        <button onclick="showAlert()">Alert Button</button>
+        <button onclick="showConfirm()">Confirm Button</button>
+        <button onclick="showPrompt()">Prompt Button</button>
+      </div>
+
+      <!-- Form Elements -->
+      <div class="section">
+        <h2>Form Elements</h2>
+        <form>
+          <label for="text">Text Input:</label>
+          <input type="text" id="text" name="text" placeholder="Enter text" />
+
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" />
+
+          <label for="gender">Gender:</label><br />
+          <input type="radio" id="male" name="gender" value="male" />
+          <label for="male">Male</label>
+          <input type="radio" id="female" name="gender" value="female" />
+          <label for="female">Female</label><br />
+
+          <label for="choices">Select an option:</label>
+          <select id="choices" name="choices">
+            <option value="option1">Option 1</option>
+            <option value="option2">Option 2</option>
+            <option value="option3">Option 3</option>
+          </select>
+
+          <label for="checkboxes">Check one or more:</label><br />
+          <input type="checkbox" id="check1" name="check1" />
+          <label for="check1">Check 1</label>
+          <input type="checkbox" id="check2" name="check2" />
+          <label for="check2">Check 2</label>
+          <input type="checkbox" id="check3" name="check3" />
+          <label for="check3">Check 3</label><br />
+
+          <label for="date">Choose a date:</label>
+          <input type="date" id="date" name="date" />
+
+          <label for="color">Pick a color:</label>
+          <input type="color" id="color" name="color" value="#3498db" />
+          <div id="colorDisplay" class="color-display"></div>
+
+          <label for="range">Adjust the range:</label>
+          <input type="range" id="range" name="range" min="1" max="100" oninput="updateRangeValue(this.value)" />
+          <span id="rangeValue" class="range-display">50</span>
+
+          <label for="textarea">Enter a message:</label>
+          <textarea id="textarea" name="textarea" rows="4" cols="50">This is a sample message.</textarea>
+        </form>
+      </div>
+
+      <!-- Drag and Drop -->
+      <div class="section">
+        <h2>Drag and Drop</h2>
+        <div id="dropzone" ondrop="drop(event)" ondragover="allowDrop(event)">
+          Drop here
+        </div>
+        <div id="drag1" class="draggable" draggable="true" ondragstart="drag(event)">
+          Drag Me
+        </div>
+      </div>
+
+      <!-- Tooltip -->
+      <div class="section">
+        <h2>Tooltip</h2>
+        <div class="tooltip">
+          Hover over me
+          <span class="tooltiptext">Tooltip text</span>
+        </div>
+      </div>
+
+      <!-- Original Static Table -->
+      <div class="section">
+        <h2>Original Static Table</h2>
+        <table>
+          <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Occupation</th>
+          </tr>
+          <tr>
+            <td>John</td>
+            <td>28</td>
+            <td>Engineer</td>
+          </tr>
+          <tr>
+            <td>Jane</td>
+            <td>24</td>
+            <td>Designer</td>
+          </tr>
+          <tr>
+            <td>Paul</td>
+            <td>35</td>
+            <td>Manager</td>
+          </tr>
+        </table>
+      </div>
+
+      <!-- Dynamic Table -->
+      <div class="section">
+        <h2>Dynamic Table</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Occupation</th>
+            </tr>
+          </thead>
+          <tbody id="dynamicTableBody">
+            <!-- Les nouvelles lignes ajoutées apparaîtront ici -->
+          </tbody>
+        </table>
+
+        <h3>Add new row to the table</h3>
+        <form onsubmit="event.preventDefault(); addRowToTable();">
+          <label for="nameInput">Name:</label>
+          <input type="text" id="nameInput" placeholder="Enter name" />
+          <label for="ageInput">Age:</label>
+          <input type="number" id="ageInput" placeholder="Enter age" />
+          <label for="jobInput">Occupation:</label>
+          <input type="text" id="jobInput" placeholder="Enter occupation" />
+          <button type="submit">Add Row</button>
+        </form>
+      </div>
+
+      <!-- Lien vers la page de connexion -->
+      <div class="section">
+        <a href="login.html">Go to Login Page</a>
+      </div>
+
+      <div class="footer">
+        <h2>Created by Oyerinde Adebola</h2>
+        <h2>Thank you for using this Website :)</h2>
+        <h4> Please suggest any improvements to this website. You can reach me in <a href="https://www.linkedin.com/in/adebola-oyerinde-56777183/">here</a> </h4>
+      </div>
+    </div>
+  </body>
+</html>
